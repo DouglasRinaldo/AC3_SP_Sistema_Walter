@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from threading import Timer
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
- 
+import time
+
 app = Flask(__name__)
 app.secret_key = "Secret Key"
 
@@ -49,13 +51,17 @@ def insert():
         valor = request.form['valor']
         tipo_pag = request.form.get('tipo_pag')
 
+
         valor_cartao = '0'
         valor_dinheiro = '0'
         if tipo_pag != 'naopago':
             if tipo_pag == 'cartao':
                 valor_cartao = '1'
+                flash("Pedido Finalizado com Sucesso") 
             elif tipo_pag == 'dinheiro':
                 valor_dinheiro = '1'
+                flash("Pedido Finalizado com Sucesso")
+
 
 
 

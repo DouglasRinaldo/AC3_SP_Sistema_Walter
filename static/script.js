@@ -1,47 +1,54 @@
-
 function verifSelect(val){
-   if(val == "cartao")
-       cartaoTrigger();
+    if(val == "cartao")
+        carregar();
+}
+
+window.onload = ()=>{
+    var msg = document.getElementById("msg").innerText;
+    var barra = document.getElementById("barra");
 }
 
 function cartaoTrigger(){
-    displayEventBlock("part0");
     setTimeout(  ()=>{
-        displayEventBlock("part1");
-        document.getElementById("msg").innerText = "Aguarde, recebendo pagamento.";
-        setTimeout( ()=> {
-            displayEventNone("part1");
-
-        }, 1500);
+        msg.innerText = "Aguarde, recebendo dados do pagamento.";
     }, 0);
     setTimeout(  ()=>{
-        displayEventBlock("part2");
-        document.getElementById("msg").innerText = "Aguarde, processando pedido..";
-        setTimeout( ()=>{
-            displayEventNone("part2");
-
-        }, 1500);
-    }, 1500);
-    setTimeout( ()=>{
-        displayEventBlock("part3");
-        document.getElementById("msg").innerText = "Aguarde, registrando no pedido...";
-        setTimeout( ()=>{
-            displayEventNone("part3");
-
-        }, 1500);
-    }, 3000);
+        msg.innerText = "Validando dados no pedido..";
+    }, 4000);
     setTimeout(  ()=>{
-        displayEventBlock("part4");
-        document.getElementById("msg").innerText = "Registro de Pagamento Concluido !";
-        setTimeout( ()=>{
-            displayEventNone("part4");
-
-        }, 1999);
-    }, 4500);
-    setTimeout( ()=> displayEventNone("part0"),5500);
+        msg.innerText = "Registro de pagamento concluido !";
+    }, 10000);
+    setTimeout( ()=> {
+        msg.innerText = "";},11000);    
 }
 
-function displayEventBlock(id)
+function carregar(){
+    var i = 0;
+    cartaoTrigger();
+    barra.style.display = "block";
+    barra.classList.remove("bg-success");
+    barra.classList.add("d-flex");
+    barra.classList.add("justify-content-center");
+    var contador = setInterval(()=>{
+        if(i!=101){
+        barra.style.width = i+"%";  
+        barra.innerText = i+"%";
+        i++;  }
+        else if(i==101){
+        barra.innerText = "";
+        barra.classList.add("bg-success");
+        barra.classList.remove("d-flex");
+        barra.classList.remove("justify-content-center");
+        }
+    },100);
+    setTimeout(()=>{
+        clearInterval(contador);
+        barra.style.display = "none";
+    },11000);
+}
+
+
+/*function displayEventBlock(id)
 {
    document.getElementById(id).style.display = "block";
    document.getElementById(id).style.fontSize = "15px";
@@ -51,3 +58,4 @@ function displayEventNone(id)
 {
    document.getElementById(id).style.display = "none";
 }
+*/
